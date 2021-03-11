@@ -3,9 +3,9 @@
 <h2>Devoured Burgers</h2>
 
 <ul>
-    {{#each cats}}
-    {{#unless sleepy}}
-    {{> cats/cat-block sleep=true}}
+    {{#each burgers}}
+    {{#unless this.devoured}}
+
     {{/unless}}
     {{/each}}
 </ul>
@@ -13,21 +13,21 @@
 
 <h2>Not-Devoured Burgers</h2>
 <ul>
-    {{#each cats}}
-    {{#if sleepy}}
-    {{> cats/cat-block sleep=false}}
+    {{#each burgers}}
+    {{#if devoured}}
+    {{!-- display the burger and the two button for the burgers --}}
     {{/if}}
     {{/each}}
 </ul>
 
 
 <h2>Add a Burger</h2>
-<form id="create-form">
+<form id="create-form" action="/api/burgers" method="POST">
 
     <div class="form-group">
         <label for="ca">Burger Name:</label>
-        <input type="text" id="ca" name="name">
+        <input type="text" id="ca" name="burgerName">
+        <button type="submit" id="burgerSubmitBtn">submit</button>
     </div>
-
-    <button type="submit">Add Burger</button>
+    <p>Click submit to add burger</p>
 </form>

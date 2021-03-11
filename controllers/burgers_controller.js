@@ -1,10 +1,10 @@
 const express = require('express')
 const burger = require('../models/burger.js')
-const router = express.router
+const router = express.Router()
 
-//renders the hompage to the user
+//renders the homepage to the user
 router.get('/', (req, res) => {
-    //what does this do?
+    console.log(req)
     burger.all((data) => {
       const hbsObject = {
         burgers: data,
@@ -14,21 +14,22 @@ router.get('/', (req, res) => {
     });
   });
 
+  //allows users to post new burgers 
   router.post('/api/burgers', (req, res) => {
-    burger.create(['name'], [req.body.name], (result) => {
+    burger.create(['burger_name', "devoured"], [req.body.name, false], (result) => {
       // Send back the ID of the new quote
       res.json({ id: result.insertId });
     });
   });
-  
-  router.put('/api/cats/:id', (req, res) => {
+
+  router.put('/api/burgers/:id', (req, res) => {
     const condition = `id = ${req.params.id}`;
   
     console.log('condition', condition);
   
-    cat.update(
+    burger.update(
       {
-        sleepy: req.body.sleepy,
+        devoured: !req.body.devoured,
       },
       condition,
       (result) => {
@@ -41,9 +42,6 @@ router.get('/', (req, res) => {
     );
   });
   
-
-
-
 
 
 module.exports = router;
