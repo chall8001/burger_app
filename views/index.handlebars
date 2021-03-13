@@ -1,75 +1,102 @@
-<h1>Burgers</h1>
-
-<h2>Devoured Burgers</h2>
+<h2>Burgers</h2>
 
 <ul>
-    {{#each burgers}}
+    {{#each this.burgers}}
     {{#unless this.devoured}}
-
+    <li>
+        <div class="burgerClass">
+            {{this.burger_name}}
+            <button id="devour">devour!</button>
+        </div>
+    </li>
     {{/unless}}
     {{/each}}
 </ul>
 
 
-<h2>Not-Devoured Burgers</h2>
+<h2>Devoured Burgers</h2>
 <ul>
-    {{#each burgers}}
+    {{#each this.burgers}}
     {{#if devoured}}
-    {{!-- display the burger and the two button for the burgers --}}
+    <li>{{this.burger_name}}</li>
     {{/if}}
     {{/each}}
 </ul>
 
 
 <h2>Add a Burger</h2>
-<form id="create-form" action="/api/burgers" method="POST">
+{{!-- <form id="create-form"> --}}
 
     <div class="form-group">
         <label for="ca">Burger Name:</label>
         <input type="text" id="ca" name="burgerName">
-        <button type="submit" id="burgerSubmitBtn">submit</button>
+        <button id="burgerSubmitBtn">submit</button>
     </div>
     <p>Click submit to add burger</p>
-</form>
+    {{!--
+</form> --}}
 
 <script>
     // Make sure we wait to attach our handlers until the DOM is fully loaded.
-    console.log("hello world")
     document.addEventListener('DOMContentLoaded', (event) => {
         if (event) {
             console.info('DOM loaded');
         }
 
+
+        const createDevourBtn = document.getElementById('devour')
+        createDevourBtn.addEventListener("click", function () {
+
+            console.log("test")
+            const devouredBurger = {
+
+                devoured: document.getElementById('ca').value.trim(),
+            }
+            fetch('/api/burgers/:id', {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+                 body: JSON.stringify(devouredBurger)
+            }).then((res) => {
+                console.log("created"); if (res.ok) {
+                    location.reload()
+                }
+            })
+                .catch((err) => {
+                    console.log(err)
+
+                })
+
+
+        })
+
         //create burgers 
         const createBurgerBtn = document.getElementById('burgerSubmitBtn')
         createBurgerBtn.addEventListener("click", function () {
             const newBurger = {
-                name: document.getElementById('ca').nodeValue.trim(),
+                name: document.getElementById('ca').value.trim(),
             }
-            location.reload();
             console.log(newBurger)
+            fetch('/api/burgers', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newBurger)
+            }).then((res) => {
+                console.log("created"); if (res.ok) {
+                    location.reload()
+                }
+            })
+                .catch((err) => {
+                    console.log(err)
+
+                })
+
         });
-    });
-
-    //update burgers to be devoured
-    fetch(`/api/burgers/${id}`, {
-        method: 'PUT',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-        },
-
-        // make sure to serialize the JSON body
-        body: JSON.stringify(newBurger),
-    }).then((response) => {
-        // Check that the response is all good
-        // Reload the page so the user can see the new quote
-        if (response.ok) {
-            console.log(`Added: ${newBurger}`);
-            location.reload('/');
-        } else {
-            alert('something went wrong!');
-        }
     });
 
 </script>
