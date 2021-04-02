@@ -6,7 +6,7 @@
     <li>
         <div class="burgerClass">
             {{this.burger_name}}
-            <button id="button" data-id="{{this.id}}">devour!</button>
+            <button class="button" data-id="{{this.id}}">devour!</button>
         </div>
     </li>
     {{/unless}}
@@ -36,6 +36,8 @@
     {{!--
 </form> --}}
 
+/*
+{{!--
 <script>
     // Make sure we wait to attach our handlers until the DOM is fully loaded.
     document.addEventListener('DOMContentLoaded', (event) => {
@@ -47,24 +49,24 @@
         createDevourBtn.addEventListener("click", function () {
 
             console.log("test")
-            const id = document.getElementById('button').getAttribute("data-id"),
+            const id = document.getElementById('button').getAttribute("data-id")
 
-                fetch(`/api/burgers/${id}`, {
-                    method: 'put',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    }
-                 body: JSON.stringify(id)
-                }).then((res) => {
-                    console.log("created"); if (res.ok) {
-                        location.reload()
-                    }
+            fetch(`/api/burgers/${id}`, {
+                method: 'put',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(id)
+            }).then((res) => {
+                console.log("created"); if (res.ok) {
+                    location.reload()
+                }
+            })
+                .catch((err) => {
+                    console.log(err)
+
                 })
-                    .catch((err) => {
-                        console.log(err)
-
-                    })
 
 
         })
@@ -96,4 +98,4 @@
         });
     });
 
-</script>
+</script>*/ --}}

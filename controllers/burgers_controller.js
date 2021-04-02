@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
   
     burger.update(
       {
-        devoured: !req.body.devoured,
+        devoured: true,
       },
       condition,
       (result) => {
