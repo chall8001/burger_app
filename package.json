@@ -16,10 +16,13 @@
   "bugs": {
     "url": "https://github.com/chall8001/burger_app/issues"
   },
-  "homepage": "https://github.com/chall8001/burger_app#readme",
+  "homepage": "https://github.com/chall8001/burger_app#server.js",
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^5.2.1",
     "mysql": "^2.18.1"
+  },
+  "engines": {
+    "node": "14.15.4"
   }
 }
