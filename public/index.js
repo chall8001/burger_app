@@ -7,10 +7,12 @@
     const createDevourBtns = document.getElementsByClassName('button')
     console.log(createDevourBtns)
     if (createDevourBtns.length > 0) {
+        for (let i=0; i<createDevourBtns.length; i++) {
 
-        createDevourBtns.addEventListener("click", function () { 
+        
+        createDevourBtns[i].addEventListener("click", function () { 
 
-            const id = document.getElementsByClassName('button').getAttribute("data-id")
+            const id = document.getElementsByClassName('button')[i].getAttribute("data-id")
             console.log(id)
             
     
@@ -33,6 +35,7 @@
     
     
         })
+    }
     }
     
 
